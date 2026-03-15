@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: pipeline-dashboard-api
+    env: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app

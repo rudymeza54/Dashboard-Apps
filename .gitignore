@@ -1,6 +1,5 @@
 *.csv
 *.xlsx
 *.txt
-*.yaml
 *.xls
 *.env
