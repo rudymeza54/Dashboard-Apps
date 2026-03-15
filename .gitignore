@@ -3,3 +3,8 @@
 *.txt
 *.xls
 *.env
+node_modules/
+venv/
+.env
+dist/
+__pycache__/
