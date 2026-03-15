@@ -1,0 +1,634 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Fraunces:wght@300;400&family=DM+Sans:wght@400;500;600&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #efefef;
+  --panel: #ffffff;
+  --border: #e4e4e4;
+  --text: #1f3539;
+  --muted: rgba(31, 53, 57, 0.45);
+  --header: #1f3539;
+  --header-text: #eef3f3;
+  --line: #23393d;
+  --bar: #445b5f;
+  --green: #50d19a;
+  --red: #c0392b;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.chrome {
+  background: var(--header);
+  color: var(--header-text);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 14px 30px;
+}
+
+.brand-title {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.brand-sub {
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.chrome-group {
+  display: flex;
+  gap: 28px;
+}
+
+.chrome-label {
+  font-size: 8px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.45;
+  margin-bottom: 8px;
+}
+
+.tabs {
+  display: flex;
+  gap: 18px;
+}
+
+.tab {
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+.tab.active {
+  opacity: 1;
+  font-weight: 600;
+}
+
+.canvas {
+  max-width: 1400px;
+  margin: auto;
+  padding: 24px;
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.grid-2-1 {
+  grid-template-columns: 2fr 1fr;
+}
+
+.grid-1-2 {
+  grid-template-columns: 1fr 2fr;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 16px;
+}
+
+.ptitle {
+  font-size: 9px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+/* KPI section */
+.kpi {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 125px;
+  gap: 18px;
+}
+
+.kpi > div:first-child {
+  flex: 1;
+}
+
+.kpi-label {
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.kpi-value {
+  font-family: 'Fraunces', serif;
+  font-size: 40px;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--text);
+}
+
+.kpi-delta {
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.kpi-label-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.tooltip-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.tooltip-icon {
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  line-height: 1;
+  color: var(--muted);
+  cursor: default;
+  background: white;
+}
+
+.tooltip-box {
+  position: absolute;
+  top: 22px;
+  left: 0;
+  width: 220px;
+  background: #1f3539;
+  color: white;
+  font-size: 11px;
+  line-height: 1.4;
+  padding: 10px 12px;
+  border-radius: 6px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(4px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 20;
+}
+
+.tooltip-wrap:hover .tooltip-box {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+
+.spark {
+  width: 120px;
+  height: 56px;
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+.spark-area {
+  opacity: 1;
+}
+
+.spark-line {
+  stroke: var(--line);
+  stroke-width: 1.9;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.spark-line-animated {
+  animation: sparkFadeIn 0.45s ease;
+}
+
+.spark-dot {
+  fill: var(--line);
+}
+
+.spark-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.spark-tooltip {
+  position: absolute;
+  top: -8px;
+  left: -10px;
+  transform: translate(-100%, 0);
+  background: #1f3539;
+  color: white;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  line-height: 1.5;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  z-index: 40;
+  min-width: 170px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+@keyframes sparkFadeIn {
+  from {
+    opacity: 0.35;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* Funnel */
+.funnel-row {
+  display: grid;
+  grid-template-columns: 120px 1fr 80px 50px;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.funnel-label {
+  text-align: right;
+}
+
+.funnel-bar {
+  height: 34px;
+  background: var(--bar);
+}
+
+/* Conversion */
+.conv-item {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid var(--border);
+  background: #fafafa;
+  padding: 12px;
+  margin-bottom: 6px;
+}
+
+.conv-rate {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* Outcomes */
+.outcome-row {
+  display: grid;
+  grid-template-columns: 90px 1fr 54px;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.outcome-label {
+  text-align: left;
+}
+
+.outcome-track {
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.outcome-bar {
+  height: 30px;
+}
+
+.outcome-value {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+/* Trend chart */
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 36px;
+  margin-bottom: 6px;
+}
+
+.legend-line {
+  border-top: 3px solid var(--line);
+  width: 20px;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.legend-line.manual {
+  border-top: 3px dashed var(--green);
+}
+
+.axis-label {
+  font-size: 10px;
+  fill: #9aa7a9;
+}
+
+/*ToolTip*/
+
+.trend-panel {
+  position: relative;
+}
+
+.trend-chart-wrap {
+  position: relative;
+  overflow: visible;
+}
+
+.chart-tooltip {
+  position: absolute;
+  background: #1f3539;
+  color: white;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  line-height: 1.5;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  z-index: 30;
+  min-width: 160px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.chart-tooltip-date {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.chart-tooltip.floating {
+  transform: translate(0, -100%);
+}
+
+/* Funnel Code */
+
+.section-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.funnel-panel {
+  position: relative;
+  overflow: visible;
+}
+
+.funnel-track {
+  position: relative;
+  height: 34px;
+  display: flex;
+  align-items: center;
+}
+
+.tooltip-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.tooltip-icon {
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  line-height: 1;
+  color: var(--muted);
+  cursor: default;
+  background: white;
+}
+
+.tooltip-box {
+  position: absolute;
+  top: 22px;
+  left: 0;
+  width: 220px;
+  background: #1f3539;
+  color: white;
+  font-size: 11px;
+  line-height: 1.4;
+  padding: 10px 12px;
+  border-radius: 6px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(4px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 100;
+}
+
+.tooltip-wrap:hover .tooltip-box {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.chart-tooltip {
+  position: absolute;
+  background: #1f3539;
+  color: white;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  line-height: 1.5;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  z-index: 30;
+  min-width: 170px;
+  pointer-events: none;
+  white-space: nowrap;
+  transform: translate(0, -100%);
+}
+
+.chart-tooltip-date {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+/* Updated CSS */
+.section-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.outcome-panel {
+  position: relative;
+  overflow: visible;
+}
+
+.kpi-panel {
+  position: relative;
+  overflow: visible;
+}
+
+.spark-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.spark-tooltip {
+  position: absolute;
+  top: -8px;
+  left: -10px;
+  transform: translate(-100%, 0);
+  background: #1f3539;
+  color: white;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  line-height: 1.5;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  z-index: 40;
+  min-width: 150px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.tooltip-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.tooltip-icon {
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  line-height: 1;
+  color: var(--muted);
+  cursor: default;
+  background: white;
+}
+
+.tooltip-box {
+  position: absolute;
+  top: 22px;
+  left: 0;
+  width: 220px;
+  background: #1f3539;
+  color: white;
+  font-size: 11px;
+  line-height: 1.4;
+  padding: 10px 12px;
+  border-radius: 6px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(4px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 100;
+}
+
+.tooltip-wrap:hover .tooltip-box {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.tooltip-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.tooltip-icon {
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  line-height: 1;
+  color: var(--muted);
+  cursor: default;
+  background: white;
+}
+
+.tooltip-box {
+  position: absolute;
+  top: 22px;
+  left: 0;
+  width: 220px;
+  background: #1f3539;
+  color: white;
+  font-size: 11px;
+  line-height: 1.4;
+  padding: 10px 12px;
+  border-radius: 6px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(4px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 100;
+}
+
+.tooltip-wrap:hover .tooltip-box {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Sparklines */
+
+.spark-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.spark-tooltip {
+  position: absolute;
+  top: -8px;
+  left: -10px;
+  transform: translate(-100%, 0);
+  background: #1f3539;
+  color: white;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  line-height: 1.5;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  z-index: 40;
+  min-width: 150px;
+  pointer-events: none;
+  white-space: nowrap;
+}
