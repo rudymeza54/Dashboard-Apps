@@ -1,6 +1,5 @@
 *.csv
 *.xlsx
-*.txt
 *.xls
 *.env
 node_modules/
