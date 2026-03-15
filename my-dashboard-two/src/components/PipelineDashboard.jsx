@@ -1,6 +1,5 @@
 
 
-console.log("API BASE:", import.meta.env.VITE_API_BASE);
 
 import "./PipelineDashboard.css";
 import { useEffect, useState } from "react";
