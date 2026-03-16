@@ -1,7 +1,11 @@
 import PipelineDashboard from "./components/PipelineDashboard";
 
 function App() {
-  return <PipelineDashboard />;
+  return (
+    <div className="app-root">
+      <PipelineDashboard />
+    </div>
+  );
 }
 
 export default App;
